@@ -1,0 +1,116 @@
+{
+  "component-definition": {
+    "uuid": "b36cff04-047c-5994-a000-ddd6cbcd1933",
+    "metadata": {
+      "title": "Presence-Gate Reference Components \u2014 Location-Aware Access Control for Delegated Agent Traffic",
+      "last-modified": "2026-07-28T12:00:00Z",
+      "version": "0.1.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Reference component definitions for the oscal-presence-gate PoC. Each component maps its implemented requirements to the PRES overlay catalog and, where applicable, to the unofficial CISA Security Requirements encoding."
+    },
+    "components": [
+      {
+        "uuid": "0d786c9a-edb2-5987-87b7-a1b044e8aff2",
+        "type": "service",
+        "title": "presence-attestation-service",
+        "description": "Issues and re-issues signed, short-TTL presence assertions for a human principal at task initiation and on re-attestation. Sources: GPS attestation via authenticator app (with device-integrity checks) or verified network evidence. Publishes assertions for binding into delegation chains.",
+        "control-implementations": [
+          {
+            "uuid": "272df30c-74d5-52bb-b3f5-8e802353ca0d",
+            "source": "presence-propagation-overlay-catalog.json",
+            "description": "Implements the presence-claim issuance half of the PRES overlay.",
+            "implemented-requirements": [
+              {
+                "uuid": "f45b64da-b4a4-5775-97ff-845b5726ed68",
+                "control-id": "pres-1",
+                "description": "Issues attested presence assertions carrying source, issuance timestamp, and max-age; refuses issuance when device-integrity checks fail, so downstream evaluation degrades to location-unknown (deny for covered data)."
+              },
+              {
+                "uuid": "17778a83-208a-5720-8c90-58ab2b2e68d1",
+                "control-id": "pres-3",
+                "description": "Supports re-attestation flows so delegations and long-lived connections can extend only against fresh presence."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "c20f013e-dfa9-5647-a01f-8e0829f08afa",
+        "type": "software",
+        "title": "location-gate-middleware",
+        "description": "Enforcement dependency for covered endpoints (reference implementation targets FastAPI). Evaluates the principal's presence assertion from the delegation chain \u2014 never the workload's network position alone \u2014 against the blocked-country parameter; fails closed on unknown; exempts only traffic classified as fully autonomous under PRES-4; emits structured decision records.",
+        "control-implementations": [
+          {
+            "uuid": "f9b31277-a068-56c3-8b52-b76c92d29bee",
+            "source": "presence-propagation-overlay-catalog.json",
+            "description": "Implements evaluation-side PRES controls.",
+            "implemented-requirements": [
+              {
+                "uuid": "38b2d609-32f1-5f09-b83f-324220943fe7",
+                "control-id": "pres-1",
+                "description": "Evaluates assertion freshness locally (microsecond budget); stale or absent assertion is treated as location unknown."
+              },
+              {
+                "uuid": "35df8b58-8572-59b3-9bbb-6237c07bbd64",
+                "control-id": "pres-2",
+                "description": "Denies covered-data requests attributable to principals in blocked countries or with unknown location; retains workload-IP checks as defense-in-depth only."
+              },
+              {
+                "uuid": "472e9425-82e2-5392-a199-24790a9e65f6",
+                "control-id": "pres-4",
+                "description": "Classifies traffic by principal reachability, not grant type."
+              },
+              {
+                "uuid": "e4822b99-b8fe-546f-a21f-d35cbaefce66",
+                "control-id": "pres-5",
+                "description": "Emits decision records with correlation IDs propagated across the delegation chain."
+              }
+            ]
+          },
+          {
+            "uuid": "91d89474-fbac-5081-9461-1a0af5b4cbd6",
+            "source": "dsp-cisa-security-requirements-catalog.json",
+            "description": "Contributes to the keystone CISA access-control requirement and its logging expectation.",
+            "implemented-requirements": [
+              {
+                "uuid": "83e8607b-6646-5e8d-ba90-efcfe5c08913",
+                "control-id": "csr-1.5",
+                "description": "Extends logical access control to delegated traffic so covered persons and countries of concern cannot obtain covered data through agents acting on a principal's behalf."
+              },
+              {
+                "uuid": "ff82ff56-b8b7-52d2-8448-2c579e218a84",
+                "control-id": "csr-1.2",
+                "description": "Decision records feed central log storage meeting the twelve-month retention minimum."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uuid": "1a5cb760-2c21-51c1-b748-49e5ed551d24",
+        "type": "software",
+        "title": "delivery-surface-gate",
+        "description": "Rendering-side enforcement for agent outputs: before covered data renders on a chat surface, notification, message, or export, verifies the recipient's presence assertion and either gates the rendering in-band or withholds covered content from ungated surfaces.",
+        "control-implementations": [
+          {
+            "uuid": "8d6e5600-f41f-5ff8-996a-ef9ec08051fb",
+            "source": "presence-propagation-overlay-catalog.json",
+            "description": "Implements the delivery half of PRES-2 and lifetime bounds of PRES-3.",
+            "implemented-requirements": [
+              {
+                "uuid": "b4c025c6-586f-51d8-9689-877ecc2c2b20",
+                "control-id": "pres-2",
+                "description": "Enforces recipient-location verification at render time \u2014 the point where access legally occurs under the DSP's definition."
+              },
+              {
+                "uuid": "c692c486-0931-5658-b3fa-3b8ac9e33b54",
+                "control-id": "pres-3",
+                "description": "Applies maximum ages to open delivery channels tied to the attestation window."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

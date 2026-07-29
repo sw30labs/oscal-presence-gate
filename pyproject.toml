@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "oscal-presence-gate"
+version = "0.2.0.dev0"
+description = "Use OSCAL as the policy brain for WHERE, not just WHAT — presence-aware guardrails for delegated AI-agent traffic (EO 14117 / DOJ Data Security Program)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Nic Cravino" }]
+keywords = ["oscal", "nist", "compliance", "ai-agents", "langgraph", "access-control", "eo-14117", "data-security-program"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+]
+dependencies = [
+  "jsonschema>=4.18",
+  "regex>=2023.0.0",
+]
+
+[project.optional-dependencies]
+graph = ["langgraph>=0.2.0"]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+opg = "oscal_presence_gate.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/sw30labs/oscal-presence-gate"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/oscal_presence_gate"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,897 @@
+{
+  "catalog": {
+    "uuid": "d5a2c9e1-4b7f-4e3a-9c1d-8e6f2a0b5c31",
+    "metadata": {
+      "title": "CISA Security Requirements for Restricted Transactions (EO 14117 / DOJ Data Security Program) \u2014 Unofficial OSCAL Encoding",
+      "last-modified": "2026-07-29T00:00:00Z",
+      "version": "0.2.1",
+      "oscal-version": "1.1.3",
+      "remarks": "UNOFFICIAL community encoding of the CISA 'Security Requirements for Restricted Transactions' (January 2025), the security requirements referenced by 28 CFR 202.248 and required for restricted transactions under 28 CFR 202.401. Each control carries a provenance prop (verbatim / near-verbatim / summary); in this version every control statement is tagged verbatim, and all verbatim-tagged prose was verified against the source document on 2026-07-28 (the source PDF is an OCR'd scan whose embedded text layer contains recognition errors; where the text layer and the printed page differ, verbatim text follows the rendered page images) (whitespace-normalized: wrapped lines rejoined and runs of whitespace collapsed, with no change to word sequence or punctuation). Encoding conventions: the source's parenthetical framework citations (NIST CSF 2.0, NIST Privacy Framework, CISA CPGs) and footnote markers are not carried into statement prose; substantive source footnotes are quoted in guidance parts; sp800-53-mapping props are this encoding's own annotations and are not part of the source document. This encoding is not produced, endorsed, or reviewed by CISA, DOJ, or NIST.",
+      "props": [
+        {
+          "name": "status",
+          "value": "verified-draft",
+          "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+        }
+      ],
+      "links": [
+        {
+          "href": "#f2b6a8d0-1c3e-4f5a-b7d9-0e2c4a6b8d10",
+          "rel": "source",
+          "text": "CISA Security Requirements for Restricted Transactions (Jan 2025)"
+        },
+        {
+          "href": "#a1c3e5b7-2d4f-4a6c-8e0b-1f3d5c7a9e21",
+          "rel": "reference",
+          "text": "28 CFR 202.248 Security requirements"
+        }
+      ]
+    },
+    "groups": [
+      {
+        "id": "csr-1",
+        "class": "cisa-section",
+        "title": "Section I \u2014 Organizational- and System-Level Requirements",
+        "parts": [
+          {
+            "id": "csr-1_overview",
+            "name": "overview",
+            "prose": "For any covered system:"
+          }
+        ],
+        "controls": [
+          {
+            "id": "csr-1.1",
+            "title": "Covered system asset inventory",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.A.1"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "CM-8",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.1_smt",
+                "name": "statement",
+                "prose": "Identify, prioritize, document all assets of the covered system.",
+                "parts": [
+                  {
+                    "id": "csr-1.1_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Maintain, to the maximum extent practicable, an updated inventory of covered system assets with each system's respective internet protocol (IP) address (including IPv6)."
+                  },
+                  {
+                    "id": "csr-1.1_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Ensure inventory is updated on a recurring basis, no less than monthly for Information Technology (IT) assets."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.1_gdn",
+                "name": "guidance",
+                "prose": "Source footnote to item a: 'This list may be maintained in an automated fashion that tracks dynamic changes in the covered system (e.g., automatic provisioning of virtual machines or containers in a cloud environment) and may consist of several constituent parts for discrete subsystems.'"
+              }
+            ]
+          },
+          {
+            "id": "csr-1.2",
+            "title": "Access- and security-event logging on covered systems",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.B.3"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "AU-2, AU-6, AU-11",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.2_smt",
+                "name": "statement",
+                "prose": "Collect logs for covered systems pertaining to access- and security-focused events (e.g., intrusion detection systems/intrusion prevention systems, firewall, data loss prevention, virtual private network, and detection of unsuccessful login events), and store such logs for use in both detection and incident response activities (e.g., forensics to assist in detection, response, and recovery). Implement a process to notify cybersecurity personnel when a critical log source, such as an operating system event logging tool, is not producing and retaining logs as expected.",
+                "parts": [
+                  {
+                    "id": "csr-1.2_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Securely store collected logs in a central system, such as a security information and event management tool or central database, for at a minimum 12 months. In the event of a data breach or a violation of these security requirements, logs should be maintained until final resolution of the matter by the U.S. Government."
+                  },
+                  {
+                    "id": "csr-1.2_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Ensure that collected logs may only be accessed or modified by authorized and authenticated users."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "csr-1.3",
+            "title": "Deny-by-default network posture for covered systems",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.B.4"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "AC-4, SC-7",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.3_smt",
+                "name": "statement",
+                "prose": "Implement configurations to deny by default (e.g., by requiring authentication) all connections to covered systems and any network on which covered systems reside, unless connections are explicitly allowed for specific system functionality."
+              }
+            ]
+          },
+          {
+            "id": "csr-1.4",
+            "title": "Basic organizational cybersecurity policies, practices, and requirements",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.A"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "PM-1",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.4_smt",
+                "name": "statement",
+                "prose": "Ensure basic organizational cybersecurity policies, practices, and requirements, including all of the following, are in place:"
+              },
+              {
+                "id": "csr-1.4_gdn",
+                "name": "guidance",
+                "prose": "Item I.A.1 (asset identification, prioritization, and inventory) is encoded separately as csr-1.1. The remaining items I.A.2 through I.A.7 are encoded verbatim as the child controls csr-1.4.1 through csr-1.4.6."
+              }
+            ],
+            "controls": [
+              {
+                "id": "csr-1.4.1",
+                "title": "Designated cybersecurity and GRC accountability",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.2"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "PM-2",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.1_smt",
+                    "name": "statement",
+                    "prose": "Designate, at an organizational level, an individual (e.g., a Chief Information Security Officer) responsible and accountable for (1) cybersecurity and (2) governance, risk, and compliance functions (GRC). This could be one individual responsible and accountable for both areas, or one individual for each of these two areas."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.4.2",
+                "title": "Known exploited vulnerability remediation",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.3"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "RA-5, SI-2",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.2_smt",
+                    "name": "statement",
+                    "prose": "Remediate known exploited vulnerabilities (KEVs) in internet-facing systems within a risk-informed span of time, prioritizing the most critical assets first and completing remediation for all such vulnerabilities within 45 calendar days.",
+                    "parts": [
+                      {
+                        "id": "csr-1.4.2_smt.a",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "a."
+                          }
+                        ],
+                        "prose": "Implement alternative compensating requirements, should patching not be feasible."
+                      },
+                      {
+                        "id": "csr-1.4.2_smt.b",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "b."
+                          }
+                        ],
+                        "prose": "Establish a process to evaluate, after patching, whether internet-facing covered systems with KEVs were compromised prior to patching."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.4.3",
+                "title": "Vendor and supplier agreements",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.4"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "SA-9, SR-2",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.3_smt",
+                    "name": "statement",
+                    "prose": "Document and maintain all vendor/supplier agreements for covered systems (e.g., third-party network connection agreements), including contractual IT and cybersecurity requirements."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.4.4",
+                "title": "Network topology",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.5"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "PL-8, CM-8",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.4_smt",
+                    "name": "statement",
+                    "prose": "Develop and maintain an accurate network topology of the covered system and, to the extent technically feasible, any network interfacing with a covered system to facilitate visibility into connections between assets, and aid in timely identification of and response to incidents."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.4.5",
+                "title": "Hardware and software deployment approval and allowlist",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.6"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "CM-3, CM-7(5)",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.5_smt",
+                    "name": "statement",
+                    "prose": "Adopt and implement an administrative policy that requires approval before new hardware or software is deployed in/on a covered system. U.S. persons engaging in restricted transactions must maintain a risk-informed allowlist of approved hardware and software for covered systems."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.4.6",
+                "title": "Incident response plans",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.A.7"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "IR-8",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.4.6_smt",
+                    "name": "statement",
+                    "prose": "Develop and maintain incident response plan(s) applicable to covered systems, which should be reviewed annually and updated as appropriate."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "csr-1.5",
+            "title": "Access control \u2014 prevent covered-person and country-of-concern access",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.B"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "AC-3, AC-6, AC-2",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "keystone",
+                "value": "true",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.5_smt",
+                "name": "statement",
+                "prose": "Implement logical and physical access controls to prevent covered persons or countries of concern from gaining access to covered data that that does not comply with the data-level requirements (Section II) including through information systems, cloud-computing platforms, networks, security systems, equipment, or software. Specifically, U.S. persons engaging in restricted transactions must:"
+              },
+              {
+                "id": "csr-1.5_gdn",
+                "name": "guidance",
+                "prose": "This is the keystone requirement operationalized by location-aware access control programs. The presence-propagation overlay catalog (PRES) extends this control to delegated AI-agent traffic, where the requester's network position does not reveal the principal's physical position. Of Section I.B's enumerated items, I.B.1, I.B.2, and I.B.5 are the child controls csr-1.5.1, csr-1.5.2, and csr-1.5.3; I.B.3 (logging) and I.B.4 (deny-by-default) are encoded separately as csr-1.2 and csr-1.3. The source places its parenthetical framework citation between the two sentences of this statement; per this catalog's conventions the citation is omitted. The doubled 'that that' is as it appears in the source text."
+              }
+            ],
+            "controls": [
+              {
+                "id": "csr-1.5.1",
+                "title": "Multifactor authentication on covered systems",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.B.1"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "IA-2(1), IA-2(2)",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.5.1_smt",
+                    "name": "statement",
+                    "prose": "Enforce multifactor authentication (MFA) on all covered systems (e.g., by requiring an Authentication Assurance Level (AAL) AAL2 or AAL3 authenticator as defined in the most recent version of NIST Special Publication 800-63B and/or its supplements), or in instances where MFA is not technically feasible and/or not enforced, require passwords have sufficient strength, including sufficient length of 15 or more characters."
+                  },
+                  {
+                    "id": "csr-1.5.1_gdn",
+                    "name": "guidance",
+                    "prose": "The source PDF is a scanned document with an OCR text layer; the text layer misrenders '(AAL)' as '(ML)' in this item. The statement follows the document as printed \u2014 'an Authentication Assurance Level (AAL) AAL2 or AAL3 authenticator' \u2014 verified against the rendered page image (page 4)."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.5.2",
+                "title": "Prompt credential revocation",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.B.2"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "AC-2(3), PS-4, PS-5",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.5.2_smt",
+                    "name": "statement",
+                    "prose": "Promptly revoke (e.g., on day of departure or within a risk-informed timeframe) any individual credentials, shared credentials, and/or authorized access to covered systems upon termination or change in roles for any individual with access to covered system(s)."
+                  }
+                ]
+              },
+              {
+                "id": "csr-1.5.3",
+                "title": "Identity management with access-preventing attributes",
+                "props": [
+                  {
+                    "name": "label",
+                    "value": "CSR-I.B.5"
+                  },
+                  {
+                    "name": "provenance",
+                    "value": "verbatim",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  },
+                  {
+                    "name": "sp800-53-mapping",
+                    "value": "IA-4, IA-5, AC-2",
+                    "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+                  }
+                ],
+                "parts": [
+                  {
+                    "id": "csr-1.5.3_smt",
+                    "name": "statement",
+                    "prose": "Issue and manage, at an organizational level, identities and credentials for authorized users, services, and hardware, with sufficient attributes available to prevent access by covered persons or countries of concern to covered data that that does not comply with the data-level requirements (Section II). Limit system access to the types of transactions and functions that authorized users are permitted to execute."
+                  },
+                  {
+                    "id": "csr-1.5.3_gdn",
+                    "name": "guidance",
+                    "prose": "The doubled 'that that' is genuinely printed in the source document (verified against the rendered page image), not an extraction artifact; it is preserved per the verbatim convention."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "csr-1.6",
+            "title": "Internal data risk assessment",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-I.C"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "RA-3, RA-8",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-1.6_smt",
+                "name": "statement",
+                "prose": "Conduct an internal data risk assessment that evaluates whether and how the overall approach selected and implemented pursuant to Section II sufficiently prevents access to covered data that is linkable, identifiable, unencrypted, or decryptable using commonly available technology by covered persons and/or countries of concern, taking into consideration the likelihood of disclosure and the likelihood of harm based on the nature of the transaction and the data at issue, to include potential data misuse and associated consequences. The risk assessment must include a mitigation strategy outlining how implementation will prevent access to covered data that is linkable, identifiable, unencrypted, or decryptable using commonly available technology by covered persons and/or countries of concern. The risk assessment should be reviewed annually by the organization and updated as appropriate."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "csr-2",
+        "class": "cisa-section",
+        "title": "Section II \u2014 Data-Level Requirements",
+        "parts": [
+          {
+            "id": "csr-2_overview",
+            "name": "overview",
+            "prose": "For any restricted transaction, implement a combination of the following mitigations that, taken together, is sufficient to fully and effectively prevent access to covered data that is linkable, identifiable, unencrypted, or decryptable using commonly available technology by covered persons and/or countries of concern, consistent with the data risk assessment described in Section I.C.:"
+          }
+        ],
+        "controls": [
+          {
+            "id": "csr-2.1",
+            "title": "Data minimization and masking",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-II.A"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "SI-12, PT-2",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-2.1_smt",
+                "name": "statement",
+                "prose": "Apply data minimization and data masking strategies to reduce the need to collect, or sufficiently obfuscate, respectively, covered data to prevent visibility into that data, without precluding the U.S. persons engaging in restricted transactions from conducting operations with the data. These strategies must include:",
+                "parts": [
+                  {
+                    "id": "csr-2.1_smt.1",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "1."
+                      }
+                    ],
+                    "prose": "Maintaining and implementing a written data retention and deletion policy, to be reviewed annually and updated as appropriate."
+                  },
+                  {
+                    "id": "csr-2.1_smt.2",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "2."
+                      }
+                    ],
+                    "prose": "Processing data in such a way to either render it no longer covered data or minimize the linkability to U.S. person entities before it is subject to access by a covered person or country of concern.",
+                    "parts": [
+                      {
+                        "id": "csr-2.1_smt.2.a",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "a."
+                          }
+                        ],
+                        "prose": "This may be achieved through application of techniques such as aggregation, pseudonymization, de-identification, or anonymization."
+                      },
+                      {
+                        "id": "csr-2.1_smt.2.b",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "b."
+                          }
+                        ],
+                        "prose": "When implemented, observability and linkability of data must be minimized to ensure U.S. person identities cannot be inferred or extrapolated from the individual data set at issue or in combination with other data sets the recipient or recipient-linked organizations are known to hold."
+                      },
+                      {
+                        "id": "csr-2.1_smt.2.c",
+                        "name": "item",
+                        "props": [
+                          {
+                            "name": "label",
+                            "value": "c."
+                          }
+                        ],
+                        "prose": "Aggregations of covered data must be based on at least the number of records required to render the data \"bulk\" under the regulations found at 28 C.F.R. \u00a7 202.205."
+                      }
+                    ]
+                  },
+                  {
+                    "id": "csr-2.1_smt.3",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "3."
+                      }
+                    ],
+                    "prose": "Treating information systems that implement such processing as covered systems subject to the requirements of Section I."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "csr-2.2",
+            "title": "Encryption of covered data in transit and storage",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-II.B.1"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "SC-8, SC-28",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-2.2_smt",
+                "name": "statement",
+                "prose": "Comprehensive Encryption: Encrypt covered data in a restricted transaction, regardless of type, during transit and storage."
+              },
+              {
+                "id": "csr-2.2_gdn",
+                "name": "guidance",
+                "prose": "This is item 1 under Section II.B: 'Apply encryption techniques to protect covered data during the course of restricted transactions. These techniques must include:'. Source footnote to this item: 'For the purposes of this requirement, CISA considers comprehensive encryption to mean cryptographic algorithms, ciphers, and protocols that are ordinarily accepted by U.S. persons with significant expertise in cryptography as being sufficient to provide confidentiality and integrity protections to sensitive data against compromise by currently known techniques and a level of computing power that is reasonably foreseeable to be available to any person, organization, or country in the near future. CISA considers U.S. Government approved encryption algorithms, ciphers, and protocols to meet this standard, but organizations may determine that other algorithms, ciphers, and protocols also qualify. For connections made using Transport Layer Security (TLS), only version 1.2 or higher is considered comprehensive encryption.'"
+              }
+            ]
+          },
+          {
+            "id": "csr-2.3",
+            "title": "Cryptographic key management",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-II.B.2"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "SC-12, SC-12(1)",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-2.3_smt",
+                "name": "statement",
+                "prose": "Key Management: Generate and securely manage cryptographic keys used to encrypt covered data, including the following practices:",
+                "parts": [
+                  {
+                    "id": "csr-2.3_smt.a",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "a."
+                      }
+                    ],
+                    "prose": "Do not co-locate encryption keys with covered data."
+                  },
+                  {
+                    "id": "csr-2.3_smt.b",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "b."
+                      }
+                    ],
+                    "prose": "Do not store encryption keys, via any mechanism (physically or virtually), in a country of concern."
+                  },
+                  {
+                    "id": "csr-2.3_smt.c",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "c."
+                      }
+                    ],
+                    "prose": "Covered persons must not be authorized to have access to encryption keys."
+                  },
+                  {
+                    "id": "csr-2.3_smt.d",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "d."
+                      }
+                    ],
+                    "prose": "All information systems responsible for the storage of and access to encryption keys must be considered covered systems subject to the requirements of Section I."
+                  }
+                ]
+              },
+              {
+                "id": "csr-2.3_gdn",
+                "name": "guidance",
+                "prose": "This is item 2 under Section II.B: 'Apply encryption techniques to protect covered data during the course of restricted transactions. These techniques must include:'."
+              }
+            ]
+          },
+          {
+            "id": "csr-2.4",
+            "title": "Privacy-enhancing technologies",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-II.C"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "PT-2, SI-19",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-2.4_smt",
+                "name": "statement",
+                "prose": "Apply privacy enhancing technologies, such as privacy preserving computation (e.g., homomorphic encryption), or differential privacy techniques (e.g., inject sufficient noise into processing of data to preclude the reconstruction of covered data from the processed data), to process covered data. Use of such techniques are subject to the following:",
+                "parts": [
+                  {
+                    "id": "csr-2.4_smt.1",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "1."
+                      }
+                    ],
+                    "prose": "The application of privacy enhancing technologies must not reveal to covered persons participating in the restricted transaction covered data or information that could reasonably likely be used to reconstruct covered data, including by linking processed data with other data sets (e.g., allowing a covered person to participate in a privacy preserving computation that requires trusted parties would not be permissible)."
+                  },
+                  {
+                    "id": "csr-2.4_smt.2",
+                    "name": "item",
+                    "props": [
+                      {
+                        "name": "label",
+                        "value": "2."
+                      }
+                    ],
+                    "prose": "For the avoidance of doubt, information systems that implement such processing are covered systems subject to the requirements of Section I."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "csr-2.5",
+            "title": "Identity and access management configured to deny covered-person access",
+            "props": [
+              {
+                "name": "label",
+                "value": "CSR-II.D"
+              },
+              {
+                "name": "provenance",
+                "value": "verbatim",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              },
+              {
+                "name": "sp800-53-mapping",
+                "value": "AC-3, AC-6",
+                "ns": "https://github.com/sw30labs/ns/oscal-presence-gate"
+              }
+            ],
+            "parts": [
+              {
+                "id": "csr-2.5_smt",
+                "name": "statement",
+                "prose": "Configure the previously outlined identity and access management techniques to deny authorized access to covered data by covered persons and countries of concern within all covered systems."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "back-matter": {
+      "resources": [
+        {
+          "uuid": "f2b6a8d0-1c3e-4f5a-b7d9-0e2c4a6b8d10",
+          "title": "CISA Security Requirements for Restricted Transactions (E.O. 14117 Implementation), January 2025",
+          "rlinks": [
+            {
+              "href": "https://www.cisa.gov/sites/default/files/2025-01/Security_Requirements_for_Restricted_Transaction-EO_14117_Implementation508.pdf"
+            }
+          ]
+        },
+        {
+          "uuid": "a1c3e5b7-2d4f-4a6c-8e0b-1f3d5c7a9e21",
+          "title": "28 CFR 202.248 \u2014 Security requirements (eCFR)",
+          "rlinks": [
+            {
+              "href": "https://www.ecfr.gov/current/title-28/chapter-I/part-202/subpart-B/section-202.248"
+            }
+          ]
+        },
+        {
+          "uuid": "c4e6a8b0-3d5f-4b7a-9c1e-2f4a6c8e0b32",
+          "title": "Federal Register \u2014 Notice of Availability of Security Requirements for Restricted Transactions Under Executive Order 14117",
+          "rlinks": [
+            {
+              "href": "https://www.federalregister.gov/documents/2025/01/08/2024-31479/notice-of-availability-of-security-requirements-for-restricted-transactions-under-executive-order"
+            }
+          ]
+        },
+        {
+          "uuid": "e6a8c0d2-4f6b-4c8d-a0e2-3b5d7f9a1c43",
+          "title": "DOJ NSD Data Security Program \u2014 Compliance Guide (April 2025)",
+          "rlinks": [
+            {
+              "href": "https://www.justice.gov/opa/media/1396356/dl"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

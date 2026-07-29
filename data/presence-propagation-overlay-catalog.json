@@ -1,0 +1,87 @@
+{
+  "catalog": {
+    "uuid": "b3d5f7a9-6c8e-4d0b-a2c4-5e7f9b1d3a52",
+    "metadata": {
+      "title": "Presence Propagation Overlay (PRES) — Location Controls for Delegated AI-Agent Traffic",
+      "last-modified": "2026-07-28T12:00:00Z",
+      "version": "0.1.0",
+      "oscal-version": "1.1.3",
+      "remarks": "Original overlay catalog. Extends the keystone access-control requirement of the CISA Security Requirements (csr-1.5 in the companion catalog) to delegated traffic: AI agents and services acting on-behalf-of a human principal, where the requester's network position does not reveal the principal's physical position. Derived from the article 'OAuth Can Prove Who Your Agent Works For. It Can't Prove Where That Person Is Standing.' These are proposed engineering controls, not regulatory text.",
+      "links": [
+        { "href": "#d0f2b4c6-7e9a-4b1d-8f3a-6c8e0a2b4d63", "rel": "related", "text": "Companion catalog: CISA Security Requirements (unofficial OSCAL encoding)" }
+      ]
+    },
+    "params": [
+      { "id": "pres_prm_blocked_countries", "label": "Blocked countries (ISO 3166-1 alpha-2)", "values": [ "CN", "HK", "MO", "RU", "IR", "KP", "CU", "VE" ], "remarks": "DSP countries of concern. HK and MO listed explicitly because 28 CFR 202.208 defines China to include both, while GeoIP data returns them as separate ISO codes." },
+      { "id": "pres_prm_attestation_max_age", "label": "Maximum presence-attestation age", "values": [ "PT1H" ], "remarks": "ISO 8601 duration. A presence claim older than this is treated as absent." },
+      { "id": "pres_prm_delegation_max_ttl", "label": "Maximum delegation lifetime for covered scopes", "values": [ "PT8H" ] },
+      { "id": "pres_prm_log_retention", "label": "Decision-log retention", "values": [ "P12M" ], "remarks": "Aligned with the CISA central-logging minimum of twelve months." }
+    ],
+    "groups": [
+      {
+        "id": "pres",
+        "title": "Presence Propagation Controls",
+        "controls": [
+          {
+            "id": "pres-1",
+            "title": "Presence as an attested claim in the delegation chain",
+            "props": [ { "name": "label", "value": "PRES-1" } ],
+            "parts": [
+              { "id": "pres-1_smt", "name": "statement", "prose": "For any delegated request that can reach covered data, an attested, short-lived presence assertion for the human principal (not the requesting workload) shall be bound into the delegation chain alongside the actor chain. The assertion shall carry its source (e.g., GPS attestation with device-integrity checks, or verified network evidence), an issuance timestamp, and shall be no older than {{ insert: param, pres_prm_attestation_max_age }} at evaluation time. A stale or absent presence assertion shall be treated as location unknown." },
+              { "id": "pres-1_gdn", "name": "guidance", "prose": "OAuth 2.0 Token Exchange (RFC 8693) defines the act claim for identity chaining; no equivalent standard exists for presence. Until one does, implement the assertion as a signed, namespaced claim issued at task initiation and re-issued on re-attestation. Evaluation must be local and cheap (microseconds, not a network hop), since it runs per request on covered endpoints." }
+            ]
+          },
+          {
+            "id": "pres-2",
+            "title": "Location enforcement at human touchpoints",
+            "props": [ { "name": "label", "value": "PRES-2" } ],
+            "parts": [
+              { "id": "pres-2_smt", "name": "statement", "prose": "Location shall be enforced at the two moments presence is real: task initiation (the principal's verified location at the time of delegation) and result delivery (the recipient's verified location at the time covered data renders — chat surface, notification, message, dashboard, or export). Requests or renderings attributable to a principal located in a country listed in {{ insert: param, pres_prm_blocked_countries }}, or whose location is unknown, shall be denied for covered data." },
+              { "id": "pres-2_gdn", "name": "guidance", "prose": "Mid-chain enforcement against workload network position is retained as defense-in-depth but shall not be treated as evidence of principal location. Delivery surfaces outside the gated estate (e.g., third-party messaging) require either an in-band gated rendering step or exclusion of covered data from that surface." }
+            ]
+          },
+          {
+            "id": "pres-3",
+            "title": "Bounded delegation and connection lifetime for covered scopes",
+            "props": [ { "name": "label", "value": "PRES-3" } ],
+            "parts": [
+              { "id": "pres-3_smt", "name": "statement", "prose": "Delegations carrying covered-data scopes shall not exceed {{ insert: param, pres_prm_delegation_max_ttl }} without re-attestation of principal presence. Long-lived connections (streams, sessions, sockets) serving covered data shall carry a maximum age tied to the presence-attestation window and shall be terminated on revocation or attestation expiry." }
+            ]
+          },
+          {
+            "id": "pres-4",
+            "title": "Principal-based classification of traffic",
+            "props": [ { "name": "label", "value": "PRES-4" } ],
+            "parts": [
+              { "id": "pres-4_smt", "name": "statement", "prose": "Traffic shall be classified for location enforcement by whether covered data can reach a human principal — not by OAuth grant type. Delegated agent traffic is human traffic evaluated against the principal's attested presence. Only fully autonomous processing whose output never renders to a person may be governed solely by system-level data entitlements." },
+              { "id": "pres-4_gdn", "name": "guidance", "prose": "Grant-type classification fails in both directions: on-behalf-of tokens are gated against workload location (wrong subject), while human-directed retrieval under client-credentials escapes gating entirely." }
+            ]
+          },
+          {
+            "id": "pres-5",
+            "title": "Delegation-chain custody logging",
+            "props": [ { "name": "label", "value": "PRES-5" } ],
+            "parts": [
+              { "id": "pres-5_smt", "name": "statement", "prose": "Every location decision on covered endpoints shall emit a structured record — decision, principal, presence-assertion source and age, evaluated country, policy version — and every hop from principal to agent to API to rendering surface shall share a correlation identifier sufficient to reconstruct the chain end to end. Records shall be retained centrally for at least {{ insert: param, pres_prm_log_retention }}." },
+              { "id": "pres-5_gdn", "name": "guidance", "prose": "Satisfies the evidence expectation behind the CISA logging requirement (csr-1.2) and produces the audit trail an assessor — or opposing counsel — will request. A control that cannot show its work does not exist for assessment purposes." }
+            ]
+          }
+        ]
+      }
+    ],
+    "back-matter": {
+      "resources": [
+        {
+          "uuid": "d0f2b4c6-7e9a-4b1d-8f3a-6c8e0a2b4d63",
+          "title": "Companion: CISA Security Requirements for Restricted Transactions — unofficial OSCAL encoding",
+          "rlinks": [ { "href": "dsp-cisa-security-requirements-catalog.json" } ]
+        },
+        {
+          "uuid": "f4a6c8e0-8b0d-4c2e-9a4b-7d9f1b3d5e74",
+          "title": "OAuth 2.0 Token Exchange (RFC 8693)",
+          "rlinks": [ { "href": "https://datatracker.ietf.org/doc/html/rfc8693" } ]
+        }
+      ]
+    }
+  }
+}
