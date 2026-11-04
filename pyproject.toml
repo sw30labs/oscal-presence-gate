@@ -21,13 +21,13 @@ classifiers = [
   "Topic :: Security",
 ]
 dependencies = [
-  "jsonschema>=4.18",
-  "regex>=2023.0.0",
+  "jsonschema==4.26.0",
+  "regex==2026.9.29",
 ]
 
 [project.optional-dependencies]
-graph = ["langgraph>=0.2.0"]
-test = ["pytest>=8.0"]
+graph = ["langgraph==1.2.19"]
+test = ["pytest==9.2.0"]
 
 [project.scripts]
 opg = "oscal_presence_gate.cli:main"
